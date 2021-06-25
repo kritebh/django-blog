@@ -1,0 +1,10 @@
+{% extends 'blog/base.html' %}
+{% block title %}Django Blog{% endblock title %}
+{% block content %}
+<h1>All Post</h1>
+
+{%for post in object_list%}
+<a href="{% url 'detail' post.pk %}"> {{post.title}}</a> -{{post.author}}
+{{post.body|truncatechars:30}} <br/>
+{% endfor %}
+{% endblock content %}
