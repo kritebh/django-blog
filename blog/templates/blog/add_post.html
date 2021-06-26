@@ -2,14 +2,17 @@
 {% block title %}Add New Post{% endblock title %}
 
 {% block content %}
-<div class="container mt-3">
+<div class="container mt-3 form-group">
 <form action="" method="POST">
 {% csrf_token %}
-
 {{form.as_p}}
-
 <input type="submit" value="Add" class="btn btn-primary">
 </form>
 
 </div>
+
+<script>
+document.querySelector("#id_title").placeholder = "Add some Compelling Title"
+document.querySelector("#id_body").placeholder = "Add some Awesome Content"
+</script>
 {% endblock content %}

@@ -4,7 +4,7 @@
 <h1>All Post</h1>
 
 {%for post in object_list%}
-<a href="{% url 'detail' post.pk %}"> {{post.title}}</a> -{{post.author}}
+<a href="{% url 'detail' post.pk %}"> {{post.title}}</a> - By {{post.author}}
 {{post.body|truncatechars:30}} <br/>
 {% endfor %}
 {% endblock content %}

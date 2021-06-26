@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{post.title}}{% endblock title %}
+{% block content %}
+{{post.title}} <br>
+By {{post.author.first_name}} at {{post.post_created_at}}<br/> <br/>
+<a href="{% url 'edit' post.id %}" class="btn btn-outline-secondary">Edit</a>
+<a href="{% url 'delete' post.id %}" class="btn btn-outline-danger">Delete</a>
+<hr/>
+{{post.body}}
+<br>
+{% endblock content %}
