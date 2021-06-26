@@ -27,7 +27,7 @@ class Post(models.Model):
         return self.likes.count()
 
     def __str__(self):
-        return self.title+' | '+str(self.author)
+        return str(self.id) + ' | '+ self.title+' | '+str(self.author)
 
     def get_absolute_url(self):
         return reverse('homepage')

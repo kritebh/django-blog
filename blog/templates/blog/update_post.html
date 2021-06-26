@@ -4,7 +4,8 @@
 {% block content %}
 {% if user.is_authenticated %}
 {% if user.id == post.author.id %}
-<div class="container mt-3 form-group">
+<div class="container mt-3 form-group d-flex justify-content-center">
+<div class="col-md-8">
 <form action="" method="POST">
 {% csrf_token %}
 {{form.as_p}}
@@ -16,6 +17,7 @@
 </div>
 {% endif %}
 {% endif %}
+</div>
 </div>
 <script>
 document.querySelector("#id_title").classList.add("form-control")
