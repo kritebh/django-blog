@@ -1,10 +1,25 @@
 {% extends 'blog/base.html' %}
 {% block title %}Django Blog{% endblock title %}
 {% block content %}
-<h1>All Post</h1>
+<h1 class="text-center">Latest Post</h1>
 
+<div class="container">
+<div class="row">
 {%for post in object_list%}
-<a href="{% url 'detail' post.pk %}"> {{post.title}}</a> - By {{post.author}}
-{{post.body|truncatechars:30}} <br/>
+<div class="col-md-4 mb-5">
+<div class="card" style="width: 18rem;">
+  <img src="#" class="card-img-top" alt="#">
+  <div class="card-body">
+    <h5 class="card-title">{{post.title}}</h5>
+    <p>By {{post.author.first_name}} on {{post.post_created_at}}</p>
+    <hr>
+    <p class="card-text">{{post.body|truncatechars:30}}</p>
+    <a href="{% url 'detail' post.pk %}" class="btn btn-primary">Continue Reading</a>
+</div>
+</div>
+</div>
 {% endfor %}
+</div>
+</div>
+
 {% endblock content %}

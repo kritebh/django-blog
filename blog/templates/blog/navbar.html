@@ -6,13 +6,44 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'addpost' %}">AddPost</a>
+      {% if cat_menu %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for i in cat_menu %}
+            <li ><a class="dropdown-item" href="{% url 'category' i %}">{{i}}</a></li>
+          {% endfor %}
+          </ul>
         </li>
+      {% endif %}
+      {% if not user.is_authenticated %}
+        <li class="nav-item">
+        <a href="{% url 'register' %}" class="nav-link">Register</a>
+        </li>
+        <li class="nav-item">
+        <a href="{% url 'login' %}" class="nav-link">Login</a>
+        </li>
+      {% endif %}
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            My Account
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+            <li ><a class="dropdown-item" href="{% url 'addpost' %}">Add Post</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
+          </ul>
+        </li>
+        {% endif %}
       </ul>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-warning" type="submit">Search</button>
+        <button class="btn btn-outline-info" type="submit">Search</button>
       </form>
     </div>
   </div>

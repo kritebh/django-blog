@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block title %}Django Blog{% endblock title %}
+{% block content %}
+<h1 class="text-center">{{category}}</h1>
+
+<div class="container">
+<div class="row">
+{%for p in post%}
+<div class="col-md-4">
+<div class="card" style="width: 18rem;">
+  <img src="#" class="card-img-top" alt="#">
+  <div class="card-body">
+    <h5 class="card-title">{{p.title}}</h5>
+    <p>By {{p.author.first_name}} on {{p.p_created_at}}</p>
+    <hr>
+    <p class="card-text">{{p.body|truncatechars:30}}</p>
+    <a href="{% url 'detail' p.pk %}" class="btn btn-primary">Continue Reading</a>
+</div>
+</div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock content %}
