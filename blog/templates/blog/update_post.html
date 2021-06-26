@@ -2,13 +2,24 @@
 {% block title %}Update Post{% endblock title %}
 
 {% block content %}
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
 <div class="container mt-3 form-group">
 <form action="" method="POST">
 {% csrf_token %}
 {{form.as_p}}
 <input type="submit" value="Update" class="btn btn-secondary">
 </form>
-
+{% else %}
+<div class="container mt-5 d-flex justify-content-center d-flex justify-content-center">
+<h3 class="text-danger text-center">You are not authorized to EDIT this Post</h3>
 </div>
-
+{% endif %}
+{% endif %}
+</div>
+<script>
+document.querySelector("#id_title").classList.add("form-control")
+document.querySelector("#id_category").classList.add("form-control")
+document.querySelector("#id_body").classList.add("form-control")
+</script>
 {% endblock content %}

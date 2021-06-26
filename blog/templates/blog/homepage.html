@@ -13,7 +13,7 @@
     <h5 class="card-title">{{post.title}}</h5>
     <p>By {{post.author.first_name}} on {{post.post_created_at}}</p>
     <hr>
-    <p class="card-text">{{post.body|truncatechars:30}}</p>
+    <p class="card-text">{{post.body|truncatechars:50}}</p>
     <a href="{% url 'detail' post.pk %}" class="btn btn-primary">Continue Reading</a>
 </div>
 </div>

@@ -21,10 +21,14 @@ class Post(models.Model):
     category = models.ForeignKey(Category,on_delete=models.SET_DEFAULT,default=6)
     body = models.TextField()
     post_created_at = models.DateField(auto_now_add=True)
+    likes = models.ManyToManyField(User,related_name='blog_posts')
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title+' | '+str(self.author)
 
     def get_absolute_url(self):
-        return reverse('detail',args=(str(self.id)))
+        return reverse('homepage')
     

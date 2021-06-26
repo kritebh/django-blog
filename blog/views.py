@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render,get_object_or_404,HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy,reverse
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
 from .forms import AddPostForm,UpdatePostForm
 from .models import Post,Category
@@ -10,7 +10,7 @@ from .models import Post,Category
 class HomeView(ListView):
     model = Post
     template_name='blog/homepage.html'
-    ordering = ['-post_created_at']
+    ordering = ['-id']
 
     def get_context_data(self,*args, **kwargs):
         cat_menu = Category.objects.all()
@@ -26,7 +26,10 @@ class PostDetailView(DetailView):
     def get_context_data(self,*args, **kwargs):
         cat_menu = Category.objects.all()
         context = super(PostDetailView,self).get_context_data(*args,**kwargs)
+        like_obj = get_object_or_404(Post,id=self.kwargs['pk'])
+        total_likes = like_obj.total_likes()
         context["cat_menu"]=cat_menu
+        context["total_likes"] = total_likes
         return context
 
 
@@ -34,16 +37,20 @@ class AddPostView(LoginRequiredMixin,CreateView):
     login_url = '/u/login/'
     redirect_field_name = 'redirect_to'
     model = Post
-    form_class = AddPostForm
+    # form_class = AddPostForm
+    fields = ('title','category','body')
     template_name="blog/add_post.html"
     # fields = '__all__'
-    # fields = ('title','body')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class UpdatePostView(LoginRequiredMixin,UpdateView):
     login_url = '/u/login/'
     redirect_field_name = 'redirect_to'
     model = Post
-    form_class = UpdatePostForm
+    fields = ('title','category','body')
     template_name = 'blog/update_post.html'
 
 
@@ -57,5 +64,10 @@ class PostDeleteView(LoginRequiredMixin,DeleteView):
 def post_by_category(request,name):
     # category = Category.objects.get(id=id)
     get_cat_id = Category.objects.filter(name=name).values_list('pk',flat=True)
-    post = Post.objects.filter(category_id=int(get_cat_id[0]))
+    post = Post.objects.filter(category_id=int(get_cat_id[0])).order_by('-post_created_at')
     return render(request,'blog/category_post.html',{'post':post,'category':name})
+
+def like_post(request,pk):
+    post = get_object_or_404(Post,id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('detail',args=[str(pk)]))
