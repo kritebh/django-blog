@@ -1,25 +1,33 @@
 {% extends 'blog/base.html' %}
+{% load static %}
 {% block title %}Django Blog{% endblock title %}
 {% block content %}
+
+<style>
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+</style>
 <h1 class="text-center">Latest Post</h1>
 
-<div class="container">
-<div class="row">
+<div class="container row">
+
 {%for post in object_list%}
 <div class="col-md-4 mb-5">
 <div class="card" style="width: 18rem;">
-  <img src="#" class="card-img-top" alt="#">
+  <a href="{% url 'detail' post.pk %}"><img src="{{post.featured_image.url}}"" class="card-img-top" alt="{{post.title}} height="165" width="250"></a>
   <div class="card-body">
-    <h5 class="card-title">{{post.title}}</h5>
+    <a href="{% url 'detail' post.pk %}" ><h5 class="card-title">{{post.title}}</h5></a>
     <p>By {{post.author.first_name}} on {{post.post_created_at}}</p>
     <hr>
-    <p class="card-text">{{post.body|truncatechars:50}}</p>
+    <p class="card-text">{{post.body|truncatechars:50|safe}}</p>
     <a href="{% url 'detail' post.pk %}" class="btn btn-primary">Continue Reading</a>
 </div>
 </div>
 </div>
 {% endfor %}
-</div>
+
 </div>
 
 {% endblock content %}

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.base import Model
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 # Create your models here.
 
 
@@ -17,9 +18,10 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
+    featured_image = models.ImageField(null=True,blank=True,upload_to="images/")
     author = models.ForeignKey(User,on_delete=models.CASCADE)
     category = models.ForeignKey(Category,on_delete=models.SET_DEFAULT,default=6)
-    body = models.TextField()
+    body = RichTextField(blank=True,null=True)
     post_created_at = models.DateField(auto_now_add=True)
     likes = models.ManyToManyField(User,related_name='blog_posts')
 

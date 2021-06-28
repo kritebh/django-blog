@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render,get_object_or_404,HttpResponseRedi
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy,reverse
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
-from .forms import AddPostForm,UpdatePostForm
+# from .forms import UpdatePostForm,AddPostForm
 from .models import Post,Category
 # Create your views here.
 
@@ -38,7 +38,7 @@ class AddPostView(LoginRequiredMixin,CreateView):
     redirect_field_name = 'redirect_to'
     model = Post
     # form_class = AddPostForm
-    fields = ('title','category','body')
+    fields = ('title','featured_image','category','body')
     template_name="blog/add_post.html"
     # fields = '__all__'
 
@@ -50,7 +50,7 @@ class UpdatePostView(LoginRequiredMixin,UpdateView):
     login_url = '/u/login/'
     redirect_field_name = 'redirect_to'
     model = Post
-    fields = ('title','category','body')
+    fields = ('title','featured_image','category','body')
     template_name = 'blog/update_post.html'
 
 
@@ -65,7 +65,8 @@ def post_by_category(request,name):
     # category = Category.objects.get(id=id)
     get_cat_id = Category.objects.filter(name=name).values_list('pk',flat=True)
     post = Post.objects.filter(category_id=int(get_cat_id[0])).order_by('-post_created_at')
-    return render(request,'blog/category_post.html',{'post':post,'category':name})
+    cat_menu = Category.objects.all()
+    return render(request,'blog/category_post.html',{'post':post,'category':name,'cat_menu':cat_menu})
 
 def like_post(request,pk):
     post = get_object_or_404(Post,id=request.POST.get('post_id'))
