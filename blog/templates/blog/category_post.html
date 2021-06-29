@@ -11,7 +11,7 @@
    <a href="{% url 'detail' p.pk %}"><img src="{{p.featured_image.url}}"" class="card-img-top" alt="{{p.title}} height="165" width="250"></a>
   <div class="card-body">
     <h5 class="card-title">{{p.title}}</h5>
-    <p>By {{p.author.first_name}} on {{p.p_created_at}}</p>
+    <p>By {{p.author.first_name}} on {{p.post_created_at}}</p>
     <hr>
     <p class="card-text">{{p.body|truncatechars:30|safe}}</p>
     <a href="{% url 'detail' p.pk %}" class="btn btn-primary">Continue Reading</a>

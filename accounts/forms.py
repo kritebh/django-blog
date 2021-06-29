@@ -1,6 +1,9 @@
+from django.forms import fields
+from accounts.models import Profile
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Profile
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm,PasswordChangeForm
 from django.forms.widgets import Widget
 
@@ -20,7 +23,7 @@ class RegisterForm(UserCreationForm):
         self.fields['password2'].widget.attrs['class']='form-control'
 
 
-class UserEditProfile(forms.ModelForm):
+class UserSettings(forms.ModelForm):
     username = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
     first_name = forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control'}))

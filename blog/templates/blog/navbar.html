@@ -32,18 +32,22 @@
             My Account
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Dashboard</a></li>
             <li ><a class="dropdown-item" href="{% url 'addpost' %}">Add Post</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{% url 'edit' %}">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'settings' %}">Settings</a></li>
+            {% if user.profile.id %}
+            <li><a class="dropdown-item" href="{% url 'edit_info' user.profile.id %}">Edit Info </a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'add_info' %}">Add Info </a></li>
+            {% endif %}
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </li>
         {% endif %}
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-info" type="submit">Search</button>
+      <form class="d-flex text-right" method='GET' action='/search'>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='query' id='query'>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
       </form>
     </div>
   </div>
