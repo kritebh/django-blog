@@ -100,4 +100,4 @@ class AddCommentView(CreateView):
 def search(request):
     query = request.GET['query']
     posts = Post.objects.filter(title__icontains=query) | Post.objects.filter(body__icontains=query)
-    return render(request,'blog/category_post.html',{'post':posts,'query':query})
+    return render(request,'blog/search.html',{'post':posts,'query':query})

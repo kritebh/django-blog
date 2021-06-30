@@ -44,9 +44,6 @@ Like {{total_likes}}
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="user d-flex flex-row align-items-center"> <img src="{% static 'blog/images/user_comment.png' %}" width="50" class="user-img rounded-circle mr-2 pe-2"> <span><small class="font-weight-bold text-primary">{{c.name}}</small> <small class="font-weight-bold">{{c.body}}</small></span> </div> <small>{{c.date_added}}</small>
                 </div>
-                <div class="action d-flex justify-content-between mt-2 align-items-center">
-                    <div class="reply px-4"> <small>Remove</small> <span class="dots"></span> <small>Reply</small></div>
-                </div>
             </div>
             {% endfor %}
         
