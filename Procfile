@@ -1,1 +1,1 @@
-web: waitress-serve --port=$80 blogproject.wsgi:application
+web: waitress-serve --port=$PORT blogproject.wsgi:application
