@@ -14,7 +14,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'b-a$d436v5!ge67vhrv-b34d_=*%j=pf1*=(41$+gw#((msl$f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["majestyblog.herokuapp.com","localhost",'127.0.0.1']
 
 
