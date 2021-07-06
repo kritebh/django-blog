@@ -14,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'b-a$d436v5!ge67vhrv-b34d_=*%j=pf1*=(41$+gw#((msl$f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["miniblogproject.herokuapp.com","localhost"]
+ALLOWED_HOSTS = ["miniblogproject.herokuapp.com","localhost",'127.0.0.1']
 
 
 # Application definition
@@ -65,7 +65,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'blogproject.wsgi.application'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
