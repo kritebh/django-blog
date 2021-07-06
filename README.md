@@ -10,6 +10,8 @@ Features
 - Seperate Author Page
 - Post Like
 
+> Live Link - https://majestyblog.herokuapp.com/
+
 ### Homepage
 
 ![](/homepage.png)
